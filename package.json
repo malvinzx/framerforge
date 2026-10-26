@@ -1,0 +1,18 @@
+{
+  "name": "frameforge-media-to-video",
+  "version": "2.0.0",
+  "private": true,
+  "description": "FrameForge — ubah gambar, video, audio, dan ZIP website menjadi video MP4 langsung di browser.",
+  "scripts": {
+    "build": "node scripts/copy-vendor.js",
+    "start": "node serve.js",
+    "dev": "node serve.js"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "0.11.0",
+    "@ffmpeg/ffmpeg": "0.11.6",
+    "html2canvas": "1.4.1",
+    "jszip": "3.10.1"
+  },
+  "engines": { "node": ">=18" }
+}

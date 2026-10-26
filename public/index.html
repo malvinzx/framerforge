@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c10">
+  <title>FrameForge — Media to Video</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="FrameForge beranda"><span class="brand-mark">F</span><span>frameforge<span class="dot">.</span></span></a>
+    <div class="top-actions"><span class="local-pill"><i></i> Pemrosesan lokal</span><a class="github-link" href="#how">Cara kerja <span>↗</span></a></div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> CREATIVE MEDIA STUDIO</div>
+      <h1>Ubah file jadi<br><span>cerita bergerak.</span></h1>
+      <p class="hero-copy">Gabungkan gambar, video, audio, dan teks menjadi video yang siap disimpan. Atur kanvas, durasi, dan tampilan — langsung dari browser.</p>
+      <div class="hero-tags"><span>✦ Tanpa upload ke server</span><span>✦ Kontrol penuh</span><span>✦ Responsif</span></div>
+    </section>
+
+    <section class="workspace" aria-label="Studio konversi video">
+      <aside class="panel source-panel">
+        <div class="panel-heading"><div><span class="step">01</span><h2>File sumber</h2></div><span class="muted small">MULTIMEDIA</span></div>
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <input id="fileInput" type="file" multiple>
+          <div class="upload-quick-actions" role="group" aria-label="Pilih jenis file">
+            <button type="button" class="quick-upload active" data-upload-kind="all">＋ Semua file</button>
+            <button type="button" class="quick-upload" data-upload-kind="video">▶ Video</button>
+            <button type="button" class="quick-upload" data-upload-kind="image">▧ Gambar</button>
+            <button type="button" class="quick-upload" data-upload-kind="audio">♫ Audio</button>
+            <button type="button" class="quick-upload" data-upload-kind="text">≡ Teks</button>
+            <button type="button" class="quick-upload" data-upload-kind="zip">ZIP / Project</button>
+          </div>
+          <span class="upload-icon">↑</span>
+          <strong>Tarik file ke sini</strong>
+          <span class="drop-sub">atau <u>pilih dari perangkat</u></span>
+          <span class="format-line">Semua format file · format diperiksa otomatis</span>
+        </label>
+        <div class="file-toolbar"><span id="fileCount">Belum ada file</span><button id="clearFiles" class="text-button" type="button">Hapus semua</button></div>
+        <div id="fileList" class="file-list"><div class="empty-files"><span>▧</span><p>File yang kamu pilih akan muncul di sini.</p></div></div>
+        <div class="privacy-note"><span>⌁</span><p><strong>Privasi terjaga</strong><br>File diproses di browser perangkatmu, tidak dikirim ke server.</p></div>
+      </aside>
+
+      <section class="panel editor-panel">
+        <div class="panel-heading"><div><span class="step">02</span><h2>Pengaturan video</h2></div><span class="live-status"><i></i> LIVE PREVIEW</span></div>
+        <div class="preview-wrap">
+          <div class="preview-stage" id="previewStage">
+            <canvas id="previewCanvas" width="1280" height="720"></canvas>
+            <div class="preview-overlay" id="previewOverlay"><div class="play-symbol">▶</div><strong>Pratinjau video</strong><span>Tambahkan gambar atau video untuk mulai</span></div>
+            <div class="preview-label"><span id="previewRatio">16:9</span><span>PREVIEW</span></div>
+          </div>
+          <div class="preview-bottom"><span id="previewInfo">1280 × 720 px</span><span class="preview-hint">Pratinjau diperbarui otomatis</span></div>
+        </div>
+        <section class="site-preview-card">
+          <div class="site-preview-head"><div><span class="step">ZIP</span><strong>Pratinjau website</strong></div><span id="siteStatus">Belum ada project</span></div>
+          <div class="site-frame-wrap" id="siteFrameWrap"><div class="site-empty"><span>⌘</span><strong>Upload ZIP website</strong><p>ZIP berisi HTML, CSS, dan JS akan dibuka di sini.</p></div><div class="site-stage" id="siteStage"><iframe id="siteFrame" title="Pratinjau website yang diunggah" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-popups" hidden></iframe></div></div>
+          <div class="site-options">
+            <label class="field"><span>Mode perekaman</span><select id="siteMode"><option value="tab">Tab capture — kualitas asli (Chrome/Edge desktop)</option><option value="snapshot">Snapshot — semua browser &amp; HP (FPS rendah)</option></select></label>
+            <label class="field"><span>Durasi manual (detik, kosong = otomatis)</span><input id="siteDurationManual" type="number" min="3" max="180" placeholder="otomatis"></label>
+            <label class="check-row"><input id="siteAutoScroll" type="checkbox" checked><span>Scroll halaman otomatis selama merekam</span></label>
+          </div>
+          <div class="site-record-controls">
+            <div class="auto-duration"><span>Durasi otomatis</span><strong id="siteDurationDisplay">Menunggu project…</strong><small>Diperkirakan dari isi halaman dan animasi</small></div>
+            <button id="recordSiteBtn" class="export-button" type="button" disabled>● Rekam website</button>
+          </div>
+          <p class="site-note">Mode Tab: klik “Rekam website”, lalu pilih <strong>tab FrameForge ini</strong> pada dialog berbagi layar — hanya area pratinjau yang direkam. Mode Snapshot tidak meminta izin apa pun. Pratinjau ZIP berjalan dengan skrip dari project kamu; unggah hanya project yang kamu percaya.</p>
+        </section>
+
+        <div class="settings-grid">
+          <label class="field"><span>Format ekspor</span><select id="format"><option value="mp4">MP4 — paling kompatibel (H.264)</option><option value="webm">WebM — cepat, kompatibel browser</option></select></label>
+          <label class="field"><span>Rasio video</span><select id="ratio"><option value="16:9">16:9 · YouTube</option><option value="9:16">9:16 · Reels / TikTok</option><option value="1:1">1:1 · Square</option><option value="4:5">4:5 · Portrait</option></select></label>
+          <label class="field"><span>Resolusi</span><select id="resolution"><option value="720">HD · 720p</option><option value="1080">Full HD · 1080p</option><option value="480">SD · 480p</option></select></label>
+          <label class="field"><span>Durasi per gambar</span><div class="input-suffix"><input id="imageDuration" type="number" min="1" max="60" value="4"><span>detik</span></div></label>
+          <label class="field"><span>Frame rate</span><select id="fps"><option value="30">30 FPS · Smooth</option><option value="24">24 FPS · Cinematic</option><option value="60">60 FPS · Fluid</option></select></label>
+          <label class="field"><span>Gaya gambar</span><select id="fit"><option value="cover">Isi kanvas (crop)</option><option value="contain">Tampilkan seluruh gambar</option><option value="blur">Latar blur</option></select></label>
+        </div>
+        <div class="divider"></div>
+        <div class="section-mini-title">Tampilan & teks</div>
+        <div class="settings-grid">
+          <label class="field"><span>Judul video (opsional)</span><input id="titleText" type="text" maxlength="100" placeholder="Contoh: My little moments"></label>
+          <label class="field"><span>Warna aksen</span><div class="color-control"><input id="accent" type="color" value="#a78bfa"><span id="accentValue">#A78BFA</span></div></label>
+          <label class="field"><span>Transisi</span><select id="transition"><option value="fade">Fade lembut</option><option value="cut">Cut langsung</option><option value="zoom">Zoom halus</option></select></label>
+          <label class="field"><span>Musik latar</span><select id="audioMode"><option value="auto">Gunakan audio terpilih</option><option value="mute">Tanpa audio</option></select></label>
+        </div>
+        <label class="check-row"><input id="showFilename" type="checkbox" checked><span>Tampilkan nama file sebagai caption</span></label>
+        <div class="export-area">
+          <div class="export-copy"><strong>Siap membuat video?</strong><span id="exportEstimate">Tambahkan minimal satu gambar atau video.</span></div>
+          <button id="exportBtn" class="export-button" type="button"><span>✦</span> Buat video <span class="button-arrow">↗</span></button>
+        </div>
+        <div class="progress-wrap hidden" id="progressWrap"><div class="progress-meta"><span id="progressLabel">Menyiapkan video…</span><span id="progressPercent">0%</span></div><div class="progress-track"><div id="progressBar"></div></div><button id="cancelBtn" class="text-button" type="button">Batalkan</button></div>
+        <div id="result" class="result hidden"></div>
+      </section>
+    </section>
+
+    <section class="how-section" id="how"><div class="eyebrow">WORKFLOW SEDERHANA</div><h2>Dari file ke video, <span>tanpa ribet.</span></h2><div class="steps-grid"><article><span>01 / IMPORT</span><h3>Pilih media</h3><p>Masukkan gambar, video, audio, atau teks dari perangkatmu.</p></article><article><span>02 / CUSTOMIZE</span><h3>Atur ceritanya</h3><p>Pilih rasio, resolusi, durasi gambar, dan tambahkan judul.</p></article><article><span>03 / EXPORT</span><h3>Simpan hasilnya</h3><p>Ekspor ke MP4 atau WebM, lihat hasilnya langsung, lalu unduh.</p></article></div></section>
+    <footer><a class="brand footer-brand" href="#"><span class="brand-mark">F</span><span>frameforge<span class="dot">.</span></span></a><span>Made for your next story ✦</span><span>Media tetap di perangkatmu</span></footer>
+  </main>
+  <script src="js/utils.js"></script>
+  <script src="js/encoder.js"></script>
+  <script src="js/media.js"></script>
+  <script src="js/exporter.js"></script>
+  <script src="js/site-zip.js"></script>
+  <script src="js/site-record.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
